@@ -39,10 +39,10 @@ let colorTop;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(255);  
+  background(0);  
 
   drawLineGroups();
-  colorMiddle = color(random(145,188), 145, 188);
+  colorMiddle = color(random(200));
   colorTop = color(random(188,255), 188, 255);
 
 }
@@ -86,7 +86,8 @@ function drawLineGroups() {
   let baseLayer3Angle = PI / 6.78; 
 
 
-  let colorBase = color(random(98,126), 98, 126);
+  //let colorBase = color(random(98,126), 98, 126);
+  let colorBase = color(random(150, 255));
 
 
 
