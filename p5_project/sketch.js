@@ -35,7 +35,11 @@ let groups = [];
 let colorMiddle;
 let colorTop;
 
+let audio;
 
+function preload(){
+  audio=loadSound('assets/NeverFadeAway.mp3');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -45,6 +49,7 @@ function setup() {
   colorMiddle = color(random(200));
   colorTop = color(random(188,255), 188, 255);
 
+  audio.play();
 }
 
 
@@ -155,4 +160,8 @@ function windowResized() {
   // Adjust canvas size and redraw the shape when the window is resized.
   resizeCanvas(windowWidth, windowHeight);
   drawLineGroups();
+}
+
+function mousePressed() {
+  audio.play(); // Play sound on mouse press
 }
