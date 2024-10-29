@@ -36,6 +36,7 @@ let colorMiddle;
 let colorTop;
 
 let audio;
+let fft;
 
 function preload(){
   audio=loadSound('assets/NeverFadeAway.mp3');
@@ -50,17 +51,25 @@ function setup() {
   colorTop = color(random(188,255), 188, 255);
 
   audio.play();
+  fft= new p5.FFT();
 }
 
 
 function draw() {
 
+  let spectrum = fft.analyze();
+    let bass = fft.getEnergy("bass");
+    let mid = fft.getEnergy("mid");
+    let treble = fft.getEnergy("treble");
+
   //Drawing base layer.
+
+
   for (let group of groups) {
     group.draw();
   }
 
-  drawMiddleLayer();
+  drawMiddleLayer(treble);
 
   drawTopLayer();
 
@@ -104,7 +113,12 @@ function drawLineGroups() {
 
 }
 
-function drawMiddleLayer() {
+function drawMiddleLayer(treble) {
+
+  // Flash middle layer based on treble energy
+  let opacity = map(treble, 255, 0, 50, 255); // Map treble to opacity
+  fill(0, opacity);
+
   //Drawing rectangle as middle layer.
   let middleLayerX=0.38*windowWidth;
   let middleLayerY=0.061*windowHeight;
@@ -113,7 +127,7 @@ function drawMiddleLayer() {
   //let colorMiddle = color(random(145,188), 145, 188);
 
   noStroke();
-  fill(colorMiddle);
+  //fill(colorMiddle);
   rect(middleLayerX,middleLayerY,middleLayerWidth,middleLayerHeight);
 }
 
