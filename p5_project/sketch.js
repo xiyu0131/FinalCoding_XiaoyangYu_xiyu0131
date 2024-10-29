@@ -58,9 +58,9 @@ function setup() {
 function draw() {
 
   let spectrum = fft.analyze();
-    let bass = fft.getEnergy("bass");
-    let mid = fft.getEnergy("mid");
-    let treble = fft.getEnergy("treble");
+  let bass = fft.getEnergy("bass");
+  let mid = fft.getEnergy("mid");
+  let treble = fft.getEnergy("treble");
 
   //Drawing base layer.
 
@@ -132,6 +132,7 @@ function drawMiddleLayer(treble) {
 }
 
 function drawTopLayer(){
+
   //Drawing top layer.
   let topLayer1X1=0.398*windowWidth;
   let topLayer1X2=0.166*windowWidth;
