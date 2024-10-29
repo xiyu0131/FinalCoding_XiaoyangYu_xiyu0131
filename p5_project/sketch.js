@@ -64,7 +64,7 @@ function draw() {
 
   drawTopLayer();
 
-
+  showInstruction();
 
 }
 
@@ -163,5 +163,17 @@ function windowResized() {
 }
 
 function mousePressed() {
-  audio.play(); // Play sound on mouse press
+  if (!audio.isPlaying()) { // Check if sound is not playing
+      audio.play(); // Play sound only if it's not already playing
+  } else {
+      audio.stop(); // Optionally stop the sound if it's already playing
+      audio.play(); // Then play it again
+  }
+}
+
+function showInstruction() {
+  textSize(32); // Set text size
+  fill(255, 255, 0); // Set text color to yellow
+  textAlign(RIGHT, BOTTOM); // Center the text
+  text('Click anywhere to play the music', width-20, height-20); // Draw the text in the center
 }
