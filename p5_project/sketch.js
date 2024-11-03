@@ -61,6 +61,8 @@ function setup() {
 
 function draw() {
   // Get energy level for treble frequencies
+  //I learned this from p5.js library, and here is a link to the source
+  //https://editor.p5js.org/creativecoding/sketches/rGgiKussB
   let spectrum = fft.analyze();
   let treble = fft.getEnergy("treble");
 
@@ -118,6 +120,8 @@ function drawLineGroups() {
 function drawMiddleLayer(treble) {
 
   // Flash middle layer based on treble energy
+  // This is learned from p5.js library, and here is a link to the source:
+  // https://editor.p5js.org/SiriPothuri/sketches/hnGXi3Rn6
   let opacity = map(treble, 255, 0, 50, 255); // Map treble to opacity
   fill(0, opacity);
 
