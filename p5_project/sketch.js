@@ -16,15 +16,16 @@ class lineGroup {
   }
 
   draw() {
-    stroke(this.color);
-    strokeWeight(this.strokeWeight);
+    stroke(this.color);// Set the color of the lines.
+    strokeWeight(this.strokeWeight);// Set the line thickness.
 
-    //This for-loop calculates the distance between 
+     // Draw each line in the group at an offset based on line spacing and angle.
     for (let i = 0; i < this.numLines; i++) {
-      
+      // Calculate horizontal and vertical offsets for each line.
       let offsetX = cos(this.angle) * this.lineSpacing * i;
       let offsetY = sin(this.angle) * this.lineSpacing * i;
-
+      
+      // Draw the line with the calculated offsets.
       line(this.startX + offsetX, this.startY + offsetY, this.endX + offsetX, this.endY + offsetY);
     }
   }
@@ -32,48 +33,48 @@ class lineGroup {
 
 //Storing the line groups into an array.
 let groups = [];
-let colorMiddle;
-let colorTop;
+let colorMiddle;// Color for the middle layer.
+let colorTop; // Color for the top layer.
 
+//Setting variables to hold the audio and fft object.
 let audio;
 let fft;
 
+// Preload the audio file for use
 function preload(){
   audio=loadSound('assets/NeverFadeAway.mp3');
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  background(0);  
+  createCanvas(windowWidth, windowHeight);// Set canvas to full window size.
+  background(0);   // Set background to black.
 
-  drawLineGroups();
-  colorMiddle = color(random(200));
-  colorTop = color(random(188,255), 188, 255);
+  drawLineGroups();// Draw the initial set of line groups.
+  colorMiddle = color(random(200));// Define color for the middle layer.
+  colorTop = color(random(188,255), 188, 255);// Define color for the top layer.
+
 
   audio.play();
-  fft= new p5.FFT();
+  fft= new p5.FFT();// Initialize FFT for analyzing audio frequencies
 }
 
 
 function draw() {
-
+  // Get energy level for treble frequencies
   let spectrum = fft.analyze();
-  let bass = fft.getEnergy("bass");
-  let mid = fft.getEnergy("mid");
   let treble = fft.getEnergy("treble");
 
-  //Drawing base layer.
 
-
+  // Draw all base layer line groups stored in the groups array.
   for (let group of groups) {
     group.draw();
   }
 
-  drawMiddleLayer(treble);
+  drawMiddleLayer(treble);// Draw the middle layer based on treble energy level.
 
-  drawTopLayer();
+  drawTopLayer();// Draw the top layer.
 
-  showInstruction();
+  showInstruction();// Display on-screen instructions
 
 }
 
@@ -81,6 +82,7 @@ function drawLineGroups() {
   // Clear existing groups when resizing
   groups = [];
   
+  // Define properties for each line group in the base layer.
   let baseLayer1StartX = 0.15 * windowWidth;
   let baseLayer1StartY = 0.75 * windowHeight;
   let baseLayer1EndX = 0.544 * windowWidth;
@@ -100,12 +102,12 @@ function drawLineGroups() {
   let baseLayer3Angle = PI / 6.78; 
 
 
-  //let colorBase = color(random(98,126), 98, 126);
+  // Set a random color for the base layer.
   let colorBase = color(random(150, 255));
 
 
 
-
+  // Add new line groups to the groups array with specified properties.
   groups.push(new lineGroup(baseLayer1StartX, baseLayer1StartY, baseLayer1EndX, baseLayer1EndY, baseLayer1Angle, 3, colorBase, 10, 3));
   groups.push(new lineGroup(baseLayer2StartX, baseLayer2StartY, baseLayer2EndX, baseLayer2EndY, baseLayer2Angle, 3, colorBase, 10, 3));
   groups.push(new lineGroup(baseLayer3StartX, baseLayer3StartY, baseLayer3EndX, baseLayer3EndY, baseLayer3Angle, 10, colorBase, 5, 3));
@@ -124,16 +126,14 @@ function drawMiddleLayer(treble) {
   let middleLayerY=0.061*windowHeight;
   let middleLayerWidth=0.211*windowWidth;
   let middleLayerHeight=0.885*windowHeight;
-  //let colorMiddle = color(random(145,188), 145, 188);
 
   noStroke();
-  //fill(colorMiddle);
   rect(middleLayerX,middleLayerY,middleLayerWidth,middleLayerHeight);
 }
 
 function drawTopLayer(){
 
-  //Drawing top layer.
+  // Draw a triangle as part of the top layer.
   let topLayer1X1=0.398*windowWidth;
   let topLayer1X2=0.166*windowWidth;
   let topLayer1X3=0.398*windowWidth;
@@ -144,6 +144,7 @@ function drawTopLayer(){
   fill(colorTop);
   triangle(topLayer1X1,topLayer1Y1,topLayer1X2,topLayer1Y2,topLayer1X3,topLayer1Y3);
 
+  // Draw first quadrilateral as part of the top layer.
   let topLayer2X1=0.558*windowWidth;
   let topLayer2X2=0.585*windowWidth;
   let topLayer2X3=0.558*windowWidth;
@@ -156,6 +157,7 @@ function drawTopLayer(){
   fill(colorTop);
   quad(topLayer2X1,topLayer2Y1,topLayer2X2,topLayer2Y2,topLayer2X4,topLayer2Y4,topLayer2X3,topLayer2Y3);
 
+  // Draw second quadrilateral as part of the top layer.
   let topLayer3X1=0.558*windowWidth;
   let topLayer3X2=0.558*windowWidth;
   let topLayer3X3=0.725*windowWidth;
@@ -178,17 +180,17 @@ function windowResized() {
 }
 
 function mousePressed() {
-  if (!audio.isPlaying()) { // Check if sound is not playing
+  if (!audio.isPlaying()) { 
       audio.play(); // Play sound only if it's not already playing
   } else {
-      audio.stop(); // Optionally stop the sound if it's already playing
+      audio.stop(); // stop the sound if it's already playing
       audio.play(); // Then play it again
   }
 }
 
 function showInstruction() {
-  textSize(32); // Set text size
+  textSize(32); 
   fill(255, 255, 0); // Set text color to yellow
-  textAlign(RIGHT, BOTTOM); // Center the text
-  text('Click anywhere to play the music', width-20, height-20); // Draw the text in the center
+  textAlign(RIGHT, BOTTOM); 
+  text('Click anywhere to play the music', width-20, height-20); // Draw the text at bottom right corner.
 }
