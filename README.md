@@ -12,12 +12,20 @@ And when the page is refreshed, the color of the shapes will change randomly.
 2. The opacity of the middle layer, the rectangle, is animated. This is unique from other members' code, because of several reasons. Firstly, the color of the base layer, the lines, is changed into white, to create contrast with background. Secondly, the background color and middle layer color are changed into black, to be merged together. Thirdly, when the music controls the opacity of middle layer, the hidden base layer, the lines will be flashing, which is different from the original design.  
   
 **Inspiration**:  
-I used the music, Never Fade Away, from the game Cyberpunk 2077's soundtrack. The animation is also inspired by the game's style, the high contrasting colors, the flashing lines simulating the lights in a high-tech future city. Here are several images from the game.
+I used the music, Never Fade Away, from the game Cyberpunk 2077's soundtrack(CD Projekt Red, 2020). The animation is also inspired by the game's style, the high contrasting colors, the flashing lines simulating the lights in a high-tech future city. Here are several images from the game.
 ![Cyberpunk 2077](https://exputer.com/wp-content/uploads/2023/06/Cyberpunk-2077.jpg)
 ![Cyberpunk 2077](https://us.v-cdn.net/6036147/uploads/6MBL528YFKSR/how-phantom-liberty-will-change-cyberpunk-2077-281-29.jpg)  
   
 **Technical discussion**:   
 In this code, i used a technique learn outside the class, which is fft.getEnergy(). This method can analyze specific frequency range in the audio file. I store the analyzing results in a variable, and use this variable to visualize the audio by animating the shapes with it. Also, i used map() to map the sound frequency with the opacity of the middle layer, so that it will be flashing. Here are the link to the sources of the fft.getEnergy() technique.  
-[fft.getEnergy()](https://editor.p5js.org/creativecoding/sketches/rGgiKussB)
-[Use getEnergy to change opacity](https://editor.p5js.org/SiriPothuri/sketches/hnGXi3Rn6)
+[fft.getEnergy()](https://editor.p5js.org/creativecoding/sketches/rGgiKussB)  
+
+[Use getEnergy to change opacity](https://editor.p5js.org/SiriPothuri/sketches/hnGXi3Rn6)  
+  
+**References**:  
+  
+CD Projekt Red. (2020). Cyberpunk 2077 [Video game]. CD Projekt.  
+Creative Coding. (n.d.). Rays and circles [Computer software]. p5.js. https://editor.p5js.org/creativecoding/sketches/rGgiKussB  
+Pothuri, S. (n.d.). Bouncing balls [Computer software]. p5.js. https://editor.p5js.org/SiriPothuri/sketches/hnGXi3Rn6  
+
 
